@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#002060">
+  <title>이진범 | 포드젠틀맨 · 선인자동차 일산</title>
+  <meta property="og:title" content="이진범 부장 | 포드젠틀맨">
+  <meta property="og:description" content="Ford · Lincoln · 010-6237-6000 · 선인자동차(주) 포드 일산전시장">
+  <meta property="og:type" content="profile">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --ford-blue:  #003087;
+      --ford-deep:  #001a55;
+      --gold:       #a87820;
+      --gold-light: #c89830;
+      --page-bg:    #edf0f5;
+      --card:       #ffffff;
+      --text:       #0d1320;
+      --text-sec:   #3a4a68;
+      --text-muted: #6a7a9a;
+      --text-light: #9aaac0;
+      --border:     #d8dde8;
+      --border-b:   rgba(0,48,135,0.15);
+      --blue-soft:  rgba(0,48,135,0.07);
+      --r:          14px;
+      --r-sm:       10px;
+      --shadow:     0 2px 16px rgba(0,30,80,0.10);
+      --shadow-md:  0 4px 24px rgba(0,30,80,0.14);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{background:var(--page-bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:430px;margin:0 auto}
+
+    /* HERO */
+    .hero{background:linear-gradient(160deg,var(--ford-deep) 0%,var(--ford-blue) 55%,#0044b8 100%);padding:50px 24px 44px;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent 0px,transparent 28px,rgba(255,255,255,.025) 28px,rgba(255,255,255,.025) 29px);pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,var(--gold-light) 40%,var(--gold-light) 60%,transparent 100%)}
+    .brand-logos{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:28px;opacity:0;animation:fadeUp .65s ease forwards .1s}
+    .logo-sep{width:1px;height:30px;background:rgba(255,255,255,.3)}
+    .lincoln-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+    .lincoln-wordmark{font-family:'Montserrat',sans-serif;font-size:7.5px;letter-spacing:4.5px;color:rgba(255,255,255,.85);font-weight:500}
+    .name-block{opacity:0;animation:fadeUp .65s ease forwards .25s}
+    .name-kr{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;letter-spacing:.22em;color:#fff;line-height:1;margin-bottom:7px}
+    .name-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.85rem;color:rgba(255,255,255,.7);letter-spacing:.22em;margin-bottom:16px}
+    .badges{display:inline-flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:9px}
+    .badge{font-size:.7rem;padding:4px 13px;border-radius:20px;font-weight:600;letter-spacing:.04em}
+    .badge-white{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35)}
+    .badge-gold{background:var(--gold-light);color:#fff}
+    .company-name{font-size:.74rem;color:rgba(255,255,255,.65);letter-spacing:.07em}
+    .slogan{margin-top:20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.92rem;color:rgba(255,255,255,.75);letter-spacing:.05em;line-height:1.7;opacity:0;animation:fadeUp .65s ease forwards .42s}
+
+    /* CARDS */
+    .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);margin:16px 16px 0;overflow:hidden}
+    .card-pad{padding:20px}
+    .sec-label{font-family:'Montserrat',sans-serif;font-size:.6rem;letter-spacing:.26em;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:14px}
+
+    /* PRIMARY ACTIONS */
+    .primary-actions{padding:16px 16px 0;display:flex;flex-direction:column;gap:10px;opacity:0;animation:fadeUp .65s ease forwards .52s}
+    .btn{display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:var(--r-sm);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:600;letter-spacing:.04em;text-decoration:none;cursor:pointer;border:none;transition:transform .12s,filter .12s}
+    .btn:active{transform:scale(.97);filter:brightness(.92)}
+    .btn-call{background:var(--ford-blue);color:#fff;font-size:.96rem;padding:16px;box-shadow:0 4px 18px rgba(0,48,135,.35)}
+    .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .btn-outlined{background:#22c55e;color:#0a0a0a;border:none;box-shadow:0 4px 14px rgba(34,197,94,.35);font-size:.96rem}
+    .btn-gray{background:#f0f3f8;color:var(--text-sec)}
+    .btn-brochure{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;border:none;font-size:.92rem;box-shadow:0 4px 18px rgba(0,0,0,.35);letter-spacing:.04em}
+
+    /* CONTACT GRID — 2×2 (버튼 크게, 탭 쉽게) */
+    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .c-item{display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:var(--text);cursor:pointer;padding:26px 6px 20px;border-radius:var(--r);background:#fff;border:1.5px solid var(--border);transition:background .13s,transform .13s,box-shadow .13s;box-shadow:0 2px 10px rgba(0,30,80,.07)}
+    .c-item:active{background:#e8ecf6;transform:scale(.94)}
+    .c-icon{width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center}
+    .c-icon svg{width:28px;height:28px}
+    .i-phone{background:rgba(0,72,204,.15);box-shadow:0 2px 8px rgba(0,72,204,.18)}
+    .i-sms{background:rgba(52,199,89,.2);box-shadow:0 2px 8px rgba(52,199,89,.22)}
+    .i-kakao{background:rgba(254,229,0,.55);box-shadow:0 2px 8px rgba(200,180,0,.25)}
+    .i-email{background:rgba(168,120,32,.18);box-shadow:0 2px 8px rgba(168,120,32,.2)}
+    .c-label{font-size:.82rem;color:var(--text);font-weight:700;letter-spacing:.04em}
+
+    /* SOCIAL BANNER (YouTube / Instagram / Blog 공통) */
+    .social-banner{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);transition:background .13s,transform .13s;padding:4px 0}
+    .social-banner:active{opacity:.8;transform:scale(.99)}
+    .social-divider{height:1px;background:var(--border);margin:10px 0}
+    .social-icon-wrap{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+    .yt-icon-wrap{background:#ff0000;}
+    .ig-icon-wrap{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);}
+    .blog-icon-wrap{background:#03c75a;}
+    .yt-play{width:0;height:0;border-style:solid;border-width:8px 0 8px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
+    .social-info{flex:1}
+    .social-title{font-weight:700;font-size:.96rem;margin-bottom:3px;color:var(--text)}
+    .social-sub{font-size:.72rem;color:var(--text-muted)}
+    .social-chev{color:var(--text-light);font-size:1.4rem;line-height:1}
+
+    /* BRAND STORY */
+    .story-inner{border-left:4px solid var(--ford-blue);padding-left:16px;margin-bottom:18px}
+    .story-title{font-family:'Cormorant Garamond',serif;font-size:1.28rem;color:var(--ford-blue);margin-bottom:8px;font-weight:600}
+    .story-body{font-size:.82rem;color:var(--text-sec);line-height:1.9}
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .stat{text-align:center;padding:13px 8px;background:var(--blue-soft);border-radius:var(--r-sm);border:1px solid var(--border-b)}
+    .stat-num{display:block;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--ford-blue);line-height:1}
+    .stat-lbl{display:block;font-size:.62rem;color:var(--text-muted);margin-top:4px;font-weight:500}
+
+    /* TEST DRIVE */
+    .td-card{background:linear-gradient(145deg,var(--ford-deep) 0%,var(--ford-blue) 100%);border-radius:var(--r);margin:16px 16px 0;padding:28px 22px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow-md)}
+    .td-card::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,transparent,transparent 25px,rgba(255,255,255,.022) 25px,rgba(255,255,255,.022) 26px);pointer-events:none}
+    .td-eyebrow{font-family:'Montserrat',sans-serif;font-size:.58rem;letter-spacing:.32em;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:7px}
+    .td-heading{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#fff;margin-bottom:14px}
+    .td-models{font-size:.79rem;line-height:2;margin-bottom:22px}
+    .td-brand-label{font-family:'Montserrat',sans-serif;font-size:.6rem;letter-spacing:.25em;display:block;margin-bottom:2px}
+    .td-brand-ford{color:rgba(255,255,255,.5)}
+    .td-brand-lincoln{color:var(--gold-light)}
+    .td-model-list{color:rgba(255,255,255,.88);display:block;margin-bottom:6px}
+    .btn-td{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--ford-blue);padding:13px 30px;border-radius:30px;font-weight:700;font-size:.9rem;text-decoration:none;letter-spacing:.04em;box-shadow:0 3px 14px rgba(0,0,0,.2);transition:transform .12s,filter .12s;position:relative;z-index:1}
+    .btn-td:active{transform:scale(.97);filter:brightness(.95)}
+
+    /* LOCATION */
+    .loc-name{font-size:.96rem;font-weight:700;color:var(--text);margin-bottom:5px}
+    .loc-addr{font-size:.8rem;color:var(--text-sec);line-height:1.7;margin-bottom:16px}
+    .map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .map-btn{display:flex;flex-direction:column;align-items:center;gap:7px;padding:13px 6px;border-radius:var(--r-sm);background:#f4f6fb;border:1px solid var(--border);text-decoration:none;color:var(--text-sec);cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:background .13s,transform .13s}
+    .map-btn:active{background:#e4e8f4;transform:scale(.95)}
+    .map-icon{font-size:1.3rem}
+    .map-label{font-size:.64rem;color:var(--text-muted);font-weight:500}
+
+    /* QR */
+    .qr-wrap{display:flex;flex-direction:column;align-items:center}
+    #qr-code{display:inline-block;padding:10px;background:#fff;border-radius:var(--r-sm);border:2px solid var(--border);margin-bottom:14px}
+    .qr-desc{font-size:.77rem;color:var(--text-sec);line-height:1.8;margin-bottom:18px;text-align:center}
+    .share-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+    .share-btn{padding:13px;border-radius:var(--r-sm);font-size:.8rem;font-weight:600;cursor:pointer;transition:background .13s,transform .13s;font-family:'Noto Sans KR',sans-serif;letter-spacing:.03em}
+    .share-btn:active{transform:scale(.97)}
+    .s-blue{background:var(--ford-blue);color:#fff;border:none}
+    .s-out{background:#fff;color:var(--ford-blue);border:2px solid var(--ford-blue)}
+
+    /* FOOTER */
+    .footer{background:var(--ford-deep);margin:16px 16px 0;border-radius:var(--r);padding:26px 22px 28px;text-align:center}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:.18em;color:var(--gold-light);margin-bottom:10px}
+    .footer-info{font-size:.72rem;color:rgba(255,255,255,.6);line-height:2}
+    .footer-info strong{color:rgba(255,255,255,.9);font-weight:600}
+    .pb{padding-bottom:28px}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--ford-deep);color:#fff;padding:11px 24px;border-radius:30px;font-size:.83rem;font-weight:500;opacity:0;transition:opacity .25s,transform .25s;z-index:9999;white-space:nowrap;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* CONTACT MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9998;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+    .modal-overlay.active{opacity:1;pointer-events:all}
+    .modal-sheet{background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:430px;transform:translateY(40px);transition:transform .28s ease;max-height:90vh;overflow-y:auto}
+    .modal-overlay.active .modal-sheet{transform:translateY(0)}
+    .modal-bar{width:40px;height:4px;background:#e0e4ed;border-radius:2px;margin:0 auto 20px}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .modal-title{font-size:1rem;font-weight:700;color:var(--text)}
+    .modal-close{background:#f4f6fb;border:none;width:30px;height:30px;border-radius:50%;font-size:.85rem;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .modal-qr-area{display:flex;flex-direction:column;align-items:center;padding:16px;background:#f8f9fc;border-radius:var(--r);margin-bottom:16px;border:1px solid var(--border)}
+    #contact-qr{padding:10px;background:#fff;border-radius:10px;border:2px solid var(--border);margin-bottom:10px}
+    .modal-qr-desc{font-size:.75rem;color:var(--text-sec);text-align:center;line-height:1.7}
+    .modal-or{text-align:center;font-size:.7rem;color:var(--text-light);margin:14px 0;letter-spacing:.1em}
+    .modal-copy-row{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+    .modal-copy-btn{padding:15px 16px;border-radius:var(--r-sm);background:#f4f6fb;border:1px solid var(--border);color:var(--text);font-size:.86rem;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;text-align:left;transition:background .13s;display:flex;align-items:center;gap:10px}
+    .modal-copy-btn:active{background:#e4e8f4;transform:scale(.98)}
+    .modal-vcf-btn{width:100%;padding:13px;border-radius:var(--r-sm);background:#fff;border:1.5px solid var(--border);color:var(--text-muted);font-size:.78rem;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:background .13s}
+    .modal-vcf-btn:active{background:#f4f6fb}
+    .modal-primary-btn{width:100%;padding:18px 16px;border-radius:var(--r);background:var(--ford-blue);border:none;color:#fff;font-size:.98rem;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:filter .13s,transform .13s;box-shadow:0 4px 18px rgba(0,48,135,.32);display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:14px}
+    .modal-primary-btn:active{transform:scale(.98);filter:brightness(.92)}
+    .modal-primary-sub{font-size:.7rem;font-weight:400;opacity:.85;letter-spacing:.03em}
+    .modal-guide{background:#f0f4fb;border-radius:var(--r-sm);padding:14px 16px;margin-bottom:8px;border-left:3px solid var(--ford-blue)}
+    .modal-guide-title{font-size:.74rem;font-weight:700;color:var(--ford-blue);margin-bottom:8px}
+    .modal-guide-row{display:flex;gap:8px;font-size:.72rem;color:var(--text-sec);line-height:1.7;margin-bottom:4px;align-items:flex-start}
+    .modal-guide-row:last-child{margin-bottom:0}
+    .modal-guide-os{font-weight:600;color:var(--text);min-width:62px;flex-shrink:0}
+    .modal-guide-step{flex:1}
+    .modal-guide-step b{color:var(--ford-blue);font-weight:600}
+
+    /* ANIM */
+    .anim{opacity:0;animation:fadeUp .65s ease forwards}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="brand-logos">
+      <svg width="96" height="40" viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="24" rx="58" ry="21.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+        <ellipse cx="60" cy="24" rx="55" ry="19" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <text x="60" y="32" text-anchor="middle" fill="white" font-family="Times New Roman,Georgia,serif" font-style="italic" font-weight="bold" font-size="24" letter-spacing="2">FORD</text>
+      </svg>
+      <div class="logo-sep"></div>
+      <div class="lincoln-wrap">
+        <svg width="28" height="28" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="19" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <path d="M20 4 L22.2 17.4 L36 20 L22.2 22.6 L20 36 L17.8 22.6 L4 20 L17.8 17.4 Z" fill="#1a1a1a"/>
+        </svg>
+        <span class="lincoln-wordmark">LINCOLN</span>
+      </div>
+    </div>
+    <div class="name-block">
+      <div class="name-kr">이진범</div>
+      <div class="name-en">LEE · JIN BEOM</div>
+      <div class="badges">
+        <span class="badge badge-white">부장</span>
+        <span class="badge badge-gold">20년 경력</span>
+      </div>
+      <div class="company-name">선인자동차(주) · 포드 일산전시장</div>
+    </div>
+    <div class="slogan">"차 한 대가 아닌, 20년의 신뢰를 드립니다"</div>
+  </div>
+
+  <!-- PRIMARY ACTIONS -->
+  <div class="primary-actions">
+    <a href="tel:010-6237-6000" class="btn btn-call">
+      <svg fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24" style="width:19px;height:19px">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+      </svg>
+      바로 통화 · 010-6237-6000
+    </a>
+    <button onclick="saveContact()" class="btn btn-outlined">
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" style="width:16px;height:16px">
+        <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M19 8v6m3-3h-6"/>
+      </svg>
+      연락처 저장
+    </button>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="card anim" style="animation-delay:.58s">
+    <div class="card-pad">
+      <div class="sec-label">CONTACT</div>
+      <div class="contact-grid">
+        <a href="tel:010-6237-6000" class="c-item">
+          <div class="c-icon i-phone">
+            <svg fill="none" stroke="#0048cc" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+            </svg>
+          </div>
+          <span class="c-label">전화</span>
+        </a>
+        <a href="sms:010-6237-6000" class="c-item">
+          <div class="c-icon i-sms">
+            <svg fill="none" stroke="#1a9e40" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+          </div>
+          <span class="c-label">문자</span>
+        </a>
+        <a href="https://open.kakao.com/o/sQ6l6Sui" target="_blank" class="c-item">
+          <div class="c-icon i-kakao">
+            <svg viewBox="0 0 24 24" style="width:24px;height:24px">
+              <ellipse cx="12" cy="11.5" rx="10" ry="9" fill="#fee500"/>
+              <path d="M12 5.5c-3.9 0-7 2.5-7 5.5 0 2 1.3 3.7 3.2 4.7l-.6 2.2 2.9-1.9c.5.1 1 .1 1.5.1 3.9 0 7-2.5 7-5.5S15.9 5.5 12 5.5z" fill="#3c1e1e"/>
+            </svg>
+          </div>
+          <span class="c-label">카카오톡</span>
+        </a>
+        <a href="mailto:car.chef.ford@gmail.com" class="c-item">
+          <div class="c-icon i-email">
+            <svg fill="none" stroke="#a87820" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <span class="c-label">이메일</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SNS · LINKS (YouTube + Instagram + Blog) -->
+  <div class="card anim" style="animation-delay:.66s">
+    <div class="card-pad">
+      <div class="sec-label">SNS · LINKS</div>
+
+      <!-- YouTube -->
+      <a href="https://youtube.com/@ford_gentleman" target="_blank" class="social-banner">
+        <div class="social-icon-wrap yt-icon-wrap">
+          <div class="yt-play"></div>
+        </div>
+        <div class="social-info">
+          <div class="social-title">포드젠틀맨 유튜브</div>
+          <div class="social-sub">@ford_gentleman · Ford &amp; Lincoln 전문 채널</div>
+        </div>
+        <div class="social-chev">›</div>
+      </a>
+
+      <div class="social-divider"></div>
+
+      <!-- Instagram -->
+      <!-- ★ 수정: 인스타그램 URL 확인 후 교체 (현재 @ford_gentleman 기준) -->
+      <a href="https://www.instagram.com/ford_gentleman/" target="_blank" class="social-banner">
+        <div class="social-icon-wrap ig-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="white" style="width:22px;height:22px">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </div>
+        <div class="social-info">
+          <div class="social-title">인스타그램</div>
+          <div class="social-sub">@ford_gentleman · 차량 &amp; 일상 피드</div>
+        </div>
+        <div class="social-chev">›</div>
+      </a>
+
+      <div class="social-divider"></div>
+
+      <!-- Naver Blog -->
+      <!-- ★ 수정: NAVER_BLOG_URL_HERE → 실제 네이버 블로그 URL로 교체 -->
+      <a href="https://m.blog.naver.com/yesyourfirst?tab=1" target="_blank" class="social-banner">
+        <div class="social-icon-wrap blog-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="white" style="width:22px;height:22px">
+            <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
+          </svg>
+        </div>
+        <div class="social-info">
+          <div class="social-title">포드젠틀맨 블로그</div>
+          <div class="social-sub">차량 리뷰 · 구매 가이드 · 이벤트</div>
+        </div>
+        <div class="social-chev">›</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- BRAND STORY -->
+  <div class="card anim" style="animation-delay:.74s">
+    <div class="card-pad">
+      <div class="sec-label">FORD GENTLEMAN</div>
+      <div class="story-inner">
+        <div class="story-title">포드젠틀맨의 약속</div>
+        <div class="story-body">
+          20년간 포드·링컨을 전담한 전문 컨설턴트가<br>
+          차량 선택부터 인도 후 관리까지 함께합니다.<br>
+          단순한 판매가 아닌, 평생 파트너십을 제안합니다.
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num">20</span>
+          <span class="stat-lbl">년 경력</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" style="font-size:1.1rem;line-height:1.4">Ford</span>
+          <span class="stat-lbl">공식 딜러</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" style="font-size:1.1rem;line-height:1.4">일산</span>
+          <span class="stat-lbl">전시장</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEST DRIVE -->
+  <div class="td-card anim" style="animation-delay:.82s">
+    <div class="td-eyebrow">EXPERIENCE</div>
+    <div class="td-heading">시승 문의</div>
+    <div class="td-models">
+      <span class="td-brand-label td-brand-ford">FORD</span>
+      <span class="td-model-list">Explorer · Expedition · Bronco · Mustang · Ranger</span>
+      <span class="td-brand-label td-brand-lincoln">LINCOLN</span>
+      <span class="td-model-list">Nautilus · Aviator · Navigator</span>
+    </div>
+    <a href="tel:010-6237-6000" class="btn-td">📞 시승 신청하기</a>
+  </div>
+
+  <!-- LOCATION -->
+  <div class="card anim" style="animation-delay:.90s">
+    <div class="card-pad">
+      <div class="sec-label">LOCATION</div>
+      <div class="loc-name">선인자동차(주) · 포드 일산전시장</div>
+      <div class="loc-addr">경기 고양시 일산동구 백마로 514</div>
+      <div class="map-grid">
+        <a href="https://map.naver.com/v5/search/%EA%B2%BD%EA%B8%B0%20%EA%B3%A0%EC%96%91%EC%8B%9C%20%EC%9D%BC%EC%82%B0%EB%8F%99%EA%B5%AC%20%EB%B0%B1%EB%A7%88%EB%A1%9C%20514" target="_blank" class="map-btn">
+          <span class="map-icon">🟢</span>
+          <span class="map-label">네이버지도</span>
+        </a>
+        <a href="https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%20%EA%B3%A0%EC%96%91%EC%8B%9C%20%EC%9D%BC%EC%82%B0%EB%8F%99%EA%B5%AC%20%EB%B0%B1%EB%A7%88%EB%A1%9C%20514" target="_blank" class="map-btn">
+          <span class="map-icon">🟡</span>
+          <span class="map-label">카카오맵</span>
+        </a>
+        <button onclick="copyAddr()" class="map-btn">
+          <span class="map-icon">📋</span>
+          <span class="map-label">주소 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR + SHARE -->
+  <div class="card anim" style="animation-delay:.98s">
+    <div class="card-pad">
+      <div class="sec-label">QR CODE · SHARE</div>
+      <div class="qr-wrap">
+        <div id="qr-code"></div>
+        <div class="qr-desc">
+          QR 스캔으로 이 명함을 즉시 열 수 있습니다.<br>
+          고객님께 화면을 보여드리거나 링크로 공유하세요.
+        </div>
+        <div class="share-grid">
+          <button class="share-btn s-blue" onclick="shareCard()">🔗 명함 공유</button>
+          <button class="share-btn s-out" onclick="copyLink()">📋 링크 복사</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BROCHURE DOWNLOAD -->
+  <!-- ★ 수정: BROCHURE_URL_HERE → 실제 브로셔 외부 링크 주소로 교체 -->
+  <div style="padding:16px 16px 0">
+    <a href="https://www.suninford.co.kr/ecatalog/" target="_blank" class="btn btn-brochure" style="width:100%">
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" style="width:16px;height:16px">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      📄 브로셔 다운로드
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer anim" style="animation-delay:1.06s">
+    <div class="footer-brand">포드젠틀맨</div>
+    <div class="footer-info">
+      <strong>이진범 부장</strong> · 선인자동차(주) · 포드 일산전시장<br>
+      📞 010-6237-6000<br>
+      ✉️ car.chef.ford@gmail.com<br>
+      <span style="font-size:.65rem;color:rgba(255,255,255,.38)">Ford · Lincoln Official Dealer</span>
+    </div>
+  </div>
+
+  <div class="pb"></div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="contactModal" onclick="closeContactModal()">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-title">연락처 저장</div>
+      <button class="modal-close" onclick="closeContactModal()">✕</button>
+    </div>
+    <button class="modal-primary-btn" onclick="downloadVcf()">
+      📲 연락처 한번에 저장하기
+      <span class="modal-primary-sub">아이폰·안드로이드 모두 지원</span>
+    </button>
+    <div class="modal-guide">
+      <div class="modal-guide-title">📌 저장 방법 안내</div>
+      <div class="modal-guide-row">
+        <span class="modal-guide-os">🍎 iOS</span>
+        <span class="modal-guide-step">다운로드 즉시 표시되는 <b>"연락처 추가"</b> 팝업 → <b>"추가"</b> 탭</span>
+      </div>
+      <div class="modal-guide-row">
+        <span class="modal-guide-os">🤖 안드로이드</span>
+        <span class="modal-guide-step">상단 알림 또는 다운로드 완료창 → <b>"열기"</b> → 연락처 앱 선택 → <b>"확인"</b></span>
+      </div>
+    </div>
+    <div class="modal-or">— 또는 항목을 눌러 복사 —</div>
+    <div class="modal-copy-row">
+      <button class="modal-copy-btn" onclick="copyField('010-6237-6000','전화번호')">
+        📞 <span>010-6237-6000</span>
+      </button>
+      <button class="modal-copy-btn" onclick="copyField('car.chef.ford@gmail.com','이메일')">
+        ✉️ <span style="font-size:.78rem">car.chef.ford@gmail.com</span>
+      </button>
+    </div>
+    <div class="modal-or">— 대면 상담 시 고객 폰으로 스캔 —</div>
+    <div class="modal-qr-area">
+      <div id="contact-qr"></div>
+      <div class="modal-qr-desc">
+        고객님의 폰 카메라로 QR 스캔<br>
+        <span style="color:var(--text-light);font-size:.68rem">→ 연락처가 즉시 저장됩니다</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // QR 코드 — 현재 페이지 URL로 자동 생성
+  new QRCode(document.getElementById('qr-code'), {
+    text: window.location.href,
+    width: 148, height: 148,
+    colorDark: '#003087', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  let contactQRDone = false;
+  function saveContact() {
+    document.getElementById('contactModal').classList.add('active');
+    if (!contactQRDone) {
+      const vcard = 'BEGIN:VCARD\r\nVERSION:3.0\r\nFN:이진범\r\nN:이;진범;;;\r\nORG:선인자동차(주)\r\nTITLE:부장\r\nTEL;TYPE=CELL:010-6237-6000\r\nEMAIL:car.chef.ford@gmail.com\r\nURL:https://youtube.com/@ford_gentleman\r\nNOTE:포드·링컨 전문 컨설턴트 20년 경력\r\nEND:VCARD';
+      new QRCode(document.getElementById('contact-qr'), {
+        text: vcard, width: 160, height: 160,
+        colorDark: '#003087', colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      contactQRDone = true;
+    }
+  }
+  function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('active');
+  }
+  function copyField(val, label) {
+    navigator.clipboard.writeText(val).then(() => showToast(label + ' 복사됨 ✓'));
+  }
+  function downloadVcf() {
+    const v = ['BEGIN:VCARD','VERSION:3.0','FN:이진범','N:이;진범;;;',
+      'ORG:선인자동차(주)','TITLE:부장','TEL;TYPE=CELL:010-6237-6000',
+      'EMAIL:car.chef.ford@gmail.com','URL:https://youtube.com/@ford_gentleman',
+      'NOTE:포드·링컨 전문 컨설턴트 20년 경력 / 선인자동차 포드 일산전시장','END:VCARD'].join('\r\n');
+    const blob = new Blob([v], {type:'text/x-vcard;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = '이진범_포드젠틀맨.vcf';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 300);
+    const isAndroid = /android/i.test(navigator.userAgent);
+    showToast(isAndroid ? '다운로드 알림 → 열기 → 연락처 선택 ✓' : '연락처 파일 다운로드 ✓');
+  }
+
+  const ADDRESS = '경기 고양시 일산동구 백마로 514';
+  function copyAddr() { navigator.clipboard.writeText(ADDRESS).then(() => showToast('주소가 복사되었습니다 ✓')); }
+
+  function shareCard() {
+    if (navigator.share) navigator.share({title:'이진범 부장 | 포드젠틀맨', text:'Ford · Lincoln 전문 컨설턴트 · 010-6237-6000', url: location.href});
+    else copyLink();
+  }
+  function copyLink() { navigator.clipboard.writeText(location.href).then(() => showToast('링크가 복사되었습니다 ✓')); }
+
+  async function saveAsImage() {
+    showToast('이미지 생성 중...');
+    try {
+      const c = await html2canvas(document.querySelector('.wrap'), {backgroundColor:'#edf0f5', scale:2, useCORS:true, logging:false});
+      Object.assign(document.createElement('a'), {download:'이진범_포드젠틀맨_명함.png', href:c.toDataURL('image/png')}).click();
+      showToast('이미지가 저장되었습니다 ✓');
+    } catch { showToast('스크린샷을 이용해 주세요'); }
+  }
+
+  function showToast(m) {
+    const t = document.getElementById('toast');
+    t.textContent = m; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2600);
+  }
+</script>
+</body>
+</html>
